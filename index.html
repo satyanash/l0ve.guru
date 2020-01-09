@@ -10,6 +10,19 @@ body {
 	background-color: #282C2F;
 	color: LightGray;
 }
+table{
+	width: 100%;
+}
+
+table td {
+	width: 33%;
+}
+
+h2 small {
+	font-size: 50%;
+	opacity: 0.5;
+}
+
 a, a:visited{
 	color: LightGray;
 	text-decoration: none;
@@ -20,8 +33,31 @@ a:hover, a:active{
 </style>
 	</head>
 	<body>
-		<h1>OKRs</h1>
-		<h2>Q1 - <span id="days-left"></span> days left</h2>
+		<h1>OKRs - days left</h1>
+		<table>
+			<tbody>
+				<tr>
+					<td>
+						<h2>
+							<small>Quarter</small><br/>
+							<span id="days-left-quarter"></span>
+						</h2>
+					</td>
+					<td>
+						<h2>
+							<small>Half</small><br/>
+							<span id="days-left-half"></span>
+						</h2>
+					</td>
+					<td>
+						<h2>
+							<small>Year</small><br/>
+							<span id="days-left-year"></span>
+						</h2>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<div>
 			<ul>
 				<li><a href="https://www.goodreads.com/user_challenges/19289299">Read <b>&gt;= 8 books</b></a></li>
@@ -33,16 +69,14 @@ a:hover, a:active{
 		</div>
 		<script>
 			(() => {
-				const daysLeft = () => {
-					const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-					const now = new Date();
-					const endDate = new Date(2020, 03, 31);
-					const answer =  Math.abs((endDate - now) / oneDay).toFixed(5);
-					document.querySelector("#days-left").textContent = answer;
-					document.title = `OKRs - ${answer} days left`
-				};
-				daysLeft();
-				window.setInterval(daysLeft, 1000);
+				const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+				const now = new Date();
+				const qAnswer = Math.abs((new Date(2020, 2, 31) - now) / oneDay).toFixed(0);
+				const hAnswer = Math.abs((new Date(2020, 5, 30) - now) / oneDay).toFixed(0);
+				const yAnswer = Math.abs((new Date(2020, 11, 31) - now) / oneDay).toFixed(0);
+				document.querySelector("#days-left-quarter").textContent = qAnswer;
+				document.querySelector("#days-left-half").textContent = hAnswer;
+				document.querySelector("#days-left-year").textContent = yAnswer;
 			})();
 		</script>
 	</body>
