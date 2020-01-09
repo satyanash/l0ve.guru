@@ -86,11 +86,15 @@ ul li {
 				const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 				const now = new Date();
 				const daysLeft = (toDate) => Math.abs((toDate - now) / oneDay).toFixed(0);
-				const mAnswer = daysLeft(new Date(2020, 0, 31));
-				const qAnswer = daysLeft(new Date(2020, 2, 31));
-				const hAnswer = daysLeft(new Date(2020, 5, 30));
-				const yAnswer = daysLeft(new Date(2020, 11, 31));
-				document.querySelector("#days-left-month").textContent = mAnswer;
+				const quarterMonth = () => [2,2,2,5,5,5,8,8,8,11,11,11][now.getMonth()];
+				const halfMonth = () => [5,5,5,5,5,5,11,11,11,11,11,11][now.getMonth()];
+
+				const monthEnd = daysLeft(new Date(now.getFullYear(), now.getMonth() + 1, 0));
+				const qAnswer = daysLeft(new Date(now.getFullYear(), quarterMonth() + 1, 0));
+				const hAnswer = daysLeft(new Date(now.getFullYear(), halfMonth() + 1, 0));
+				const yAnswer = daysLeft(new Date(now.getFullYear(), 11, 31));
+
+				document.querySelector("#days-left-month").textContent = monthEnd;
 				document.querySelector("#days-left-quarter").textContent = qAnswer;
 				document.querySelector("#days-left-half").textContent = hAnswer;
 				document.querySelector("#days-left-year").textContent = yAnswer;
