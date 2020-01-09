@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<script>
+		const OKRs = [
+			{
+				text: "Read >= 8 books",
+				href: "https://www.goodreads.com/user_challenges/19289299",
+			},
+			"Finish all exercises from the Book of Proof",
+			"Maintain a meditation streak for >= 66 days",
+			"Maintain a no-solo-entertainment-tv streak for >= 66 days",
+			"Maintain a math-every-day streak for >= 66 days",
+		];
+
+	</script>
 		<title>OKRs</title>
 <style>
 body {
@@ -73,15 +86,30 @@ ul li {
 			</tbody>
 		</table>
 		<div>
-			<ul>
-				<li><a href="https://www.goodreads.com/user_challenges/19289299">Read <b>&gt;= 8 books</b></a></li>
-				<li>Finish all exercises from the <b>Book of Proof</b></li>
-				<li>Maintain a <b>meditation</b> streak for <b>&gt;= 66 days</b></li>
-				<li>Maintain a <b>no-solo-entertainment-tv</b> streak for <b>&gt;= 66 days</b></li>
-				<li>Maintain a <b>math-every-day</b> streak for <b>&gt;= 66 days</b></li>
-			</ul>
+			<ul id="okr-list"></ul>
 		</div>
 		<script>
+			(() => {
+				const frag = document.createDocumentFragment();
+				OKRs.map((okr) => {
+					const li = document.createElement("li");
+					if(typeof okr == "string") {
+						li.appendChild(document.createTextNode(okr));
+					} else if(typeof okr == "object") {
+						const textNode = document.createTextNode(okr.text)
+						if(okr.href) {
+							const a = document.createElement("a");
+							a.href = okr.href;
+							a.appendChild(textNode);
+							li.appendChild(a);
+						} else {
+							li.appendChild(textNode);
+						}
+					}
+					return li;
+				}).forEach((li) => frag.appendChild(li));
+				document.querySelector("#okr-list").appendChild(frag);
+			})();
 			(() => {
 				const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 				const now = new Date();
