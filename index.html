@@ -4,21 +4,25 @@
 		<title>OKRs</title>
 <style>
 body {
-	font-size: 250%;
+	font-size: 200%;
 	margin: 5%;
 	font-family: 'Courier', sans-serif;
 	background-color: #282C2F;
 	color: LightGray;
+}
+h2 {
+	text-align: center;
 }
 table{
 	width: 100%;
 }
 
 table td {
-	width: 33%;
+	width: 25%;
+	text-align: center;
 }
 
-h2 small {
+table td h2 small {
 	font-size: 50%;
 	opacity: 0.5;
 }
@@ -30,13 +34,23 @@ a, a:visited{
 a:hover, a:active{
 	text-decoration: underline;
 }
+
+ul li {
+	line-height: 1.7;
+}
 </style>
 	</head>
 	<body>
-		<h1>OKRs - days left</h1>
+		<h2>OKRs</h2>
 		<table>
 			<tbody>
 				<tr>
+					<td>
+						<h2>
+							<small>Month</small><br/>
+							<span id="days-left-month"></span>
+						</h2>
+					</td>
 					<td>
 						<h2>
 							<small>Quarter</small><br/>
@@ -71,9 +85,12 @@ a:hover, a:active{
 			(() => {
 				const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 				const now = new Date();
-				const qAnswer = Math.abs((new Date(2020, 2, 31) - now) / oneDay).toFixed(0);
-				const hAnswer = Math.abs((new Date(2020, 5, 30) - now) / oneDay).toFixed(0);
-				const yAnswer = Math.abs((new Date(2020, 11, 31) - now) / oneDay).toFixed(0);
+				const daysLeft = (toDate) => Math.abs((toDate - now) / oneDay).toFixed(0);
+				const mAnswer = daysLeft(new Date(2020, 0, 31));
+				const qAnswer = daysLeft(new Date(2020, 2, 31));
+				const hAnswer = daysLeft(new Date(2020, 5, 30));
+				const yAnswer = daysLeft(new Date(2020, 11, 31));
+				document.querySelector("#days-left-month").textContent = mAnswer;
 				document.querySelector("#days-left-quarter").textContent = qAnswer;
 				document.querySelector("#days-left-half").textContent = hAnswer;
 				document.querySelector("#days-left-year").textContent = yAnswer;
